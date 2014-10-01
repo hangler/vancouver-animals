@@ -83,7 +83,6 @@
       </div>
 
       <div class="row">
-
         <div class="col-md-12">
 
           <a name="names"></a>
@@ -91,7 +90,8 @@
           <div id="name_chart" class="chart"></div>
 
           <a name="colors"></a>
-          <h1>Top 25 Colours</h1>
+          <h1>Top Colours</h1>
+          <div id="color_venn"></div>
           <div id="color_chart" class="chart"></div>
 
           <a name="breeds"></a>
@@ -107,6 +107,9 @@
     <script src="/assets-global/jquery/jquery.min.js"></script>
     <script src="/assets-global/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets-global/d3/d3.min.js"></script>
+    <script src="/assets-global/numeric/numeric.min.js"></script>
+    <script src="/assets-global/d3/plugins/venn/mds.js"></script>
+    <script src="/assets-global/d3/plugins/venn/venn.min.js"></script>
 
     <script>
 
@@ -125,11 +128,104 @@
       }); 
     }
 
+    function makeVenn() {
+      d3.text("data/color.csv", function(text) {
+        var baseItems = {};
+        var dataset = d3.csv.parseRows(text);
+        $.each(dataset, function(itemIndex, item) {
+          var keys = item[0].split("/");
+          var value = parseInt(item[1]);
+          $.each(keys, function(keyIndex, key) {
+            baseItems[key] === undefined ? baseItems[key] = value : baseItems[key] += value;
+          });
+        });
+        var sets = [];
+        var indices = {};
+        $.each(Object.keys(baseItems), function(baseItemKeyIndex, baseItemKey) {
+          sets.push({ label: baseItemKey, size: baseItems[baseItemKey] });
+          indices[baseItemKey] = baseItemKeyIndex;
+        });
+        
+        var results = [];
+        // Need to get all possible combinations of sets; code adapted from
+        // http://www.growingwiththeweb.com/2013/06/algorithm-all-combinations-of-set.html
+        for (var i = 0; i < sets.length; i++) {
+          var resultsLength = results.length;
+          for (var j = 0; j < resultsLength; j++) {
+            var temp = results[j].slice(); // .slice() creates a deep copy of the array
+            temp.push(indices[sets[i]["label"]]);
+            results.push(temp);
+          }
+          results.push([indices[sets[i]["label"]]]);
+        }
+
+        var interimResults = {};
+        $.each(results, function(setIndex, set) {
+          interimResults[set] = 0;
+        });
+        
+        console.log(indices);
+        console.log(interimResults);
+
+        // Fill overlaps data
+        $.each(dataset, function(itemIndex, item) {
+          var keys = item[0].split("/");
+          $.each(keys, function(keyIndex, key) {
+            keys[keyIndex] = indices[key];
+          })
+
+          keys.sort();
+
+          if (keys.length > 1) {
+            var value = parseInt(item[1]);
+            interimResults[keys] = value;
+          }
+          //var value = parseInt(item[1]);
+          //$.each(keys, function(keyIndex, key) {
+          //  if
+          //});
+        });
+        console.log(interimResults);
+
+        var overlaps = [];
+        $.each(Object.keys(interimResults), function(interimResultKeyIndex, interimResultKey) {
+          if (interimResultKey.length > 1) {
+            overlaps.push({ sets: interimResultKey.split(","), size: interimResults[interimResultKey]});
+          }
+        });
+        console.log(sets);
+        console.log(overlaps);
+        console.log(overlaps.length);
+
+        // get positions for each set
+        sets = venn.venn(sets, overlaps, {layoutFunction: venn.classicMDSLayout});
+
+        var colorVenn = venn.drawD3Diagram(d3.select("#color_venn"), sets, 700, 700);
+
+        var fillColors =   ["#000", "#f60", "#fff", "#643", "#999"];
+        var borderColors = ["#000", "#f60", "#ccc", "#421", "#999"];
+        var textColors =   ["#000", "#f60", "#666", "#643", "#333"];
+        colorVenn.circles.style("fill", function(d, i) { return fillColors[i] })
+                         .style("fill-opacity", 0.5)
+                         .style("stroke", function(d, i) { return borderColors[i] })
+                         .style("stroke-width", 1)
+                         .style("stroke-opacity", 1)
+        ;
+        colorVenn.text.style("fill", function(d, i) { return textColors[i] })
+
+      });
+
+
+    }
+
     var types = ["name", "color", "breed"];
 
     for (var i = 0; i < types.length; i++) {
       makeChart(types[i])
     }
+
+    makeVenn();
+
 
     </script>
   
