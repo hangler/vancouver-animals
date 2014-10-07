@@ -193,20 +193,19 @@
             overlaps.push({ sets: interimResultKey.split(","), size: interimResults[interimResultKey]});
           }
         });
-        console.log(sets);
-        console.log(overlaps);
-        console.log(overlaps.length);
 
         // get positions for each set
-        sets = venn.venn(sets, overlaps, {layoutFunction: venn.classicMDSLayout});
+        //sets = venn.venn(sets, overlaps, {layoutFunction: venn.classicMDSLayout});
+        sets = venn.venn(sets, overlaps);
 
         var colorVenn = venn.drawD3Diagram(d3.select("#color_venn"), sets, 700, 700);
 
-        var fillColors =   ["#000", "#f60", "#fff", "#643", "#999"];
-        var borderColors = ["#000", "#f60", "#ccc", "#421", "#999"];
-        var textColors =   ["#000", "#f60", "#666", "#643", "#333"];
+        var fillColors =   ["#000", "#abc", "#fff", "#643", "#999", "#f30"];
+        var opacities =    [0.5,    0.5,    0.5,    0.5,    0.5,    0.5   ];
+        var borderColors = ["#000", "#abc", "#ccc", "#421", "#999", "#f30"];
+        var textColors =   ["#000", "#789", "#666", "#643", "#333", "#f30"];
         colorVenn.circles.style("fill", function(d, i) { return fillColors[i] })
-                         .style("fill-opacity", 0.5)
+                         .style("fill-opacity", function(d, i) { return opacities[i] })
                          .style("stroke", function(d, i) { return borderColors[i] })
                          .style("stroke-width", 1)
                          .style("stroke-opacity", 1)
