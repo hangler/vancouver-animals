@@ -309,5 +309,5 @@ print lostAnimals[(lostAnimals.is_other < 1) & (lostAnimals.is_dog < 1) & (lostA
 
 lostAnimals[(lostAnimals.is_dog)][lostAnimals.pet_name != 'Unknown']['Name'].value_counts().head(10).to_csv('name.csv')
 lostAnimals['Color'].value_counts().head(25).to_csv('color.csv')
-lostAnimals[(lostAnimals.is_other == True) & (lostAnimals.is_unknown == True)]['Breed'].value_counts().to_csv('breed.csv')
+lostAnimals[(lostAnimals.is_dog == True)]['Breed'].value_counts().head(25).to_csv('breed.csv')
 lostAnimals.to_csv('all.csv')
