@@ -209,19 +209,14 @@ unknowns = [
           ]
 
 cat_regex = re.compile("|".join(cats), re.IGNORECASE)
-
 dog_regex = re.compile("|".join(dogs), re.IGNORECASE)
-
 other_regex = re.compile("|".join(others), re.IGNORECASE)
-
 unknown_regex = re.compile("|".join(unknowns), re.IGNORECASE)
-
-
 
 # Some cursory data cleaning...
 
 def collapse_colors(item):
-  valid_colors = ["black", "white", "brown", "grey", "red", "tan", "gold"]
+  valid_colors = ["black", "white", "brown", "grey"]
   colors = []
   item = str(item).lower()
   
@@ -256,7 +251,13 @@ def collapse_breeds(item):
 
   return "/".join(breeds).title()
 
-def is_breed(item, regex):
+def extract_sex(item):
+  item = str(item).lower()
+  if item == "nan":
+    return "x"
+  return item[0]
+
+def is_animal_type(item, regex):
 
   item = str(item).strip(".")
   result = regex.search(item)
@@ -299,15 +300,31 @@ x_collapse_colors = {
 
 lostAnimals.replace("?", "Unknown", inplace=True)
 lostAnimals['Color'] = lostAnimals['Color'].map(lambda x : collapse_colors(x))
-lostAnimals['is_cat'] = lostAnimals['Breed'].map(lambda x : is_breed(x, cat_regex))
-lostAnimals['is_dog'] = lostAnimals['Breed'].map(lambda x : is_breed(x, dog_regex))
-lostAnimals['is_other'] = lostAnimals['Breed'].map(lambda x : is_breed(x, other_regex))
-lostAnimals['is_unknown'] = lostAnimals['Breed'].map(lambda x : is_breed(x, unknown_regex))
+lostAnimals['is_cat'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, cat_regex))
+lostAnimals['is_dog'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, dog_regex))
+lostAnimals['is_other'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, other_regex))
+lostAnimals['is_unknown'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, unknown_regex))
 lostAnimals['pet_name'] = lostAnimals['Name']
-
-print lostAnimals[(lostAnimals.is_other < 1) & (lostAnimals.is_dog < 1) & (lostAnimals.is_cat < 1)]['Breed'].value_counts()
+lostAnimals['sex_simple'] = lostAnimals['Sex'].map(lambda x : extract_sex(x))
 
 lostAnimals[(lostAnimals.is_dog)][lostAnimals.pet_name != 'Unknown']['Name'].value_counts().head(10).to_csv('name.csv')
 lostAnimals['Color'].value_counts().head(25).to_csv('color.csv')
 lostAnimals[(lostAnimals.is_dog == True)]['Breed'].value_counts().head(25).to_csv('breed.csv')
 lostAnimals.to_csv('all.csv')
+
+# Now do some group by magic
+# http://pandas.pydata.org/pandas-docs/stable/indexing.html
+#byname = lostAnimals[(lostAnimals.is_dog == True)].groupby(['Name', 'sex_simple'])
+#print byname.describe()
+
+all_dogs = lostAnimals[(lostAnimals.is_dog)].copy()
+
+top_names = all_dogs[all_dogs.pet_name != 'Unknown']['Name'].value_counts().head(10)
+top_names = list(top_names.keys())
+print top_names
+top_names = { "Name": top_names }
+row_mask = all_dogs.isin(top_names).any(1)
+top_dogs = all_dogs[row_mask][all_dogs.sex_simple != 'x']
+by_name = top_dogs.groupby(['Name', 'sex_simple']).size().reset_index()
+by_name.columns = ["name", "sex", "count"]
+by_name.to_csv('name_and_sex.csv', index=False)
