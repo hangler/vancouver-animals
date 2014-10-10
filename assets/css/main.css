@@ -35,6 +35,31 @@ body {
   text-shadow: #fff 0 1px 0;
 }
 
-#color_venn text {
+.line {
+  stroke: #9cf;
+  fill:none;
+  stroke-width: 1;
+}
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 11px;
+}
+
+.text-label {
+  font-size: 13px;
+}
+
+circle {
+  fill: #9cf;
+}
+
+.d3-tip {
+  text-align: center;
 }

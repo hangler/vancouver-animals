@@ -12,7 +12,6 @@
 
     <link href="./assets/css/main.css" rel="stylesheet">
 
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,44 +32,6 @@
   </head>
   <body>
 
-    <!--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="./">Fixed top</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>-->
-
     <div class="container">
 
       <div class="row">
@@ -84,6 +45,10 @@
 
       <div class="row">
         <div class="col-md-12">
+
+          <a name="over_time"></a>
+          <h1>Lost Dogs over Time</h1>
+          <div id="foo"></div>
 
           <a name="names"></a>
           <h1>Top 10 Dog Names</h1>
@@ -110,9 +75,11 @@
     <script src="/assets-global/numeric/numeric.min.js"></script>
     <script src="/assets-global/d3/plugins/venn/mds.js"></script>
     <script src="/assets-global/d3/plugins/venn/venn.min.js"></script>
+    <script src="/assets-global/d3/plugins/tip/tip.min.js"></script>
 
     <script>
 
+    // Generic method to make a bar chart
     function makeChart(type) {
       d3.text("data/" + type + ".csv", function(text) {
         var dataset = d3.csv.parseRows(text);
@@ -128,6 +95,7 @@
       }); 
     }
 
+    // Generic method to make a Venn diagram
     function makeVenn() {
       d3.text("data/color.csv", function(text) {
         var baseItems = {};
@@ -164,8 +132,8 @@
           interimResults[set] = 0;
         });
         
-        console.log(indices);
-        console.log(interimResults);
+        //console.log(indices);
+        //console.log(interimResults);
 
         // Fill overlaps data
         $.each(dataset, function(itemIndex, item) {
@@ -180,12 +148,8 @@
             var value = parseInt(item[1]);
             interimResults[keys] = value;
           }
-          //var value = parseInt(item[1]);
-          //$.each(keys, function(keyIndex, key) {
-          //  if
-          //});
         });
-        console.log(interimResults);
+        //console.log(interimResults);
 
         var overlaps = [];
         $.each(Object.keys(interimResults), function(interimResultKeyIndex, interimResultKey) {
@@ -194,8 +158,6 @@
           }
         });
 
-        // get positions for each set
-        //sets = venn.venn(sets, overlaps, {layoutFunction: venn.classicMDSLayout});
         sets = venn.venn(sets, overlaps);
 
         var colorVenn = venn.drawD3Diagram(d3.select("#color_venn"), sets, 700, 700);
@@ -213,17 +175,112 @@
         colorVenn.text.style("fill", function(d, i) { return textColors[i] })
 
       });
-
-
     }
 
-    var types = ["name", "color", "breed"];
+    function makeLostAnimalsLineGraph() {
+      
+      tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d["date_created"] + "<br/>" + parseInt(d["is_dog"]) + " dogs lost"; });
 
-    for (var i = 0; i < types.length; i++) {
-      makeChart(types[i])
+      var height = 500;
+      var width = 1000;
+      var margin = {top: 20, right:20, bottom: 50, left: 20};
+      
+      // formatters for axis and labels
+      var decimalFormat = d3.format("0.2f");
+      
+      var svg = d3.select("#foo")
+        .append("svg")
+        .attr("width", width + margin.right + margin.left)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+      svg.call(tip)
+
+      svg.append("g")
+        .attr("class", "y axis");
+        
+      svg.append("g")
+        .attr("class", "x axis");
+        
+      var xScale = d3.scale.ordinal()
+        .rangeRoundBands([margin.left, width], 0);
+        
+      var yScale = d3.scale.linear()
+        .range([height, 10]);
+      
+      var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom");
+        
+      var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
+      
+      d3.csv("data/lost_by_date.csv", function(data) {
+        
+        // extract the x labels for the axis and scale domain
+        var xLabels = data.map(function (d) { return d['date_created']; })
+      
+        xScale.domain(xLabels);
+        yScale.domain([0, Math.round(d3.max(data, function(d) { return parseFloat(d['is_dog']); }))]);
+        
+        var line = d3.svg.line()
+          .x(function(d) { return xScale(d['date_created']); })
+          .y(function(d) { return yScale(d['is_dog']); });
+        
+        svg.append("path")
+          .datum(data)
+          .attr("class","line")
+          .attr("d", line)
+
+        
+        svg.select(".x.axis")
+          .attr("transform", "translate(0," + (height) + ")")
+          .call(xAxis.tickValues(xLabels.filter(function(d, i) { 
+            if (i % 3 == 0)
+              return d;
+            })))
+          .selectAll("text")
+          .style("text-anchor","end")
+          .attr("transform", function(d) {
+            return "rotate(-45)";
+          });
+        
+        svg.select(".y.axis")
+          .attr("transform", "translate(" + (margin.left) + ",0)")
+          .call(yAxis);
+        
+        // x axis label
+        svg.append("text")
+          .attr("x", (width + (margin.left + margin.right) )/ 2)
+          .attr("y", height + margin.bottom)
+          .attr("class", "text-label")
+          .attr("text-anchor", "middle")
+          .text("Year-Month");
+        
+        var points = svg.selectAll(".point")
+          .data(data)
+          .enter().append("svg:circle")
+           .attr("fill", function(d, i) { return "black" })
+           .attr("cx", function(d, i) { return xScale(d['date_created']) })
+           .attr("cy", function(d, i) { return yScale(d['is_dog']) })
+           .attr("r", function(d, i) { return 4 })
+           .on('mouseover', tip.show)
+           .on('mouseout', tip.hide)
+
+
+
+      });
     }
 
+    var types = ["name", "breed"];
+
+    // Make charts and Venn
+    for (var i = 0; i < types.length; i++) { makeChart(types[i]) }
     makeVenn();
+    makeLostAnimalsLineGraph();
+
+    // Make line graph
 
 
     </script>

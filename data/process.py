@@ -1,8 +1,44 @@
 import pandas as pd
 import re as re
 from datetime import datetime
+import csv
+
+def dog_breed_dict_from_csv(file_name):
+  dog_breed_dict = {}
+  with open(file_name, mode='r') as infile:
+    reader = csv.reader(infile)
+    next(reader, None)  # skip the headers
+    for rows in reader:
+      breed = rows[0].lower()
+      breed_type = rows[1].lower()
+      if "(" in breed:
+        start = breed.index("(")
+        end = breed.index(")")
+        pre_parenthetical_content = breed[0:start-1]
+        parenthetical_content = breed[start+1:end]
+        dog_breed_dict[parenthetical_content] = breed_type
+        dog_breed_dict[parenthetical_content + " " + pre_parenthetical_content] = breed_type
+      dog_breed_dict[breed] = breed_type
+  # Manual additions
+  dog_breed_dict["germ. shepherd"] = "herding dogs"
+  dog_breed_dict["german shepherd"] = "herding dogs"
+  dog_breed_dict["chihuahua"] = "toy dogs"
+  dog_breed_dict["pitbull"] = "non-sporting dogs"
+  dog_breed_dict["pit bull"] = "non-sporting dogs"
+  dog_breed_dict["retriever"] = "sporting dogs"
+  dog_breed_dict["dachshund"] = "hounds"
+  dog_breed_dict["terrier"] = "terriers"
+  dog_breed_dict["border collie"] = "herding dogs"
+  dog_breed_dict["collie"] = "herding dogs"
+  dog_breed_dict["jack russell terrier"] = "terriers"
+  dog_breed_dict["shepherd"] = "herding dogs"
+  dog_breed_dict["husky"] = "working dogs"
+  return dog_breed_dict
 
 lostAnimals = pd.read_csv('LostAnimals-2014-09-30.csv')
+dog_breed_dict = dog_breed_dict_from_csv("breed_index.csv")
+#print dog_breed_dict
+
 
 cats = [
           r"[mn]aine? ?coon",
@@ -206,7 +242,7 @@ unknowns = [
             r"small short haired curly tail",
             r"small with half cropped tail",
             r"very small"
-          ]
+           ]
 
 cat_regex = re.compile("|".join(cats), re.IGNORECASE)
 dog_regex = re.compile("|".join(dogs), re.IGNORECASE)
@@ -232,24 +268,30 @@ def collapse_colors(item):
 
   return "/".join(colors).title()
 
-def collapse_breeds(item):
-  valid_breeds = ["lab", "shih", "shep", "chihuahua", "collie", "pitbull", "husky", "pomeranian", "rott", "retriever" ]
-  breeds = []
-  item = str(item).lower()
-
-  if " x" in item:
-    breeds.append("cross")
+def dog_breed_type(breed):
+  breed = str(breed).lower()
+  breed_type = ""
+  if " x" in breed or " mix" in breed:
+    #print "CROSS: " + breed
+    breed_type = "cross"
+  elif breed in dog_breed_dict:
+    #print "FOUND: " + breed + " --> " + dog_breed_dict[breed]
+    breed_type = dog_breed_dict[breed]
   else:
-    for valid_breed in valid_breeds:
-      if valid_breed in item:
-        breeds.append(valid_breed)
-  
-  if len(breeds) == 0:
-    breeds.append("other")
-  elif len(breeds) > 1:
-    breeds = []
-
-  return "/".join(breeds).title()
+    found = False
+    for key in dog_breed_dict.keys():
+      if breed in key:
+        breed_type = dog_breed_dict[key]
+        found = True
+        break
+      if key in breed:
+        breed_type = dog_breed_dict[key]
+        found = True
+        break
+    if not found:
+      #print "MISS:  " + breed
+      breed_type = "unknown"
+  return breed_type
 
 def extract_sex(item):
   item = str(item).lower()
@@ -264,6 +306,14 @@ def is_animal_type(item, regex):
 
   return False if result is None else True
 
+def filter_df_by_top_n_items(df, column_name, n):
+  filtered_df = df.copy()
+  df_filter = filtered_df[column_name].value_counts().head(n)
+  df_filter = list(df_filter.keys())
+  df_filter = { column_name: df_filter }
+  row_mask = filtered_df.isin(df_filter).any(1)
+  filtered_df = filtered_df[row_mask]
+  return filtered_df
 
 
 x_collapse_colors = {
@@ -299,15 +349,17 @@ x_collapse_colors = {
 }
 
 lostAnimals.replace("?", "Unknown", inplace=True)
+lostAnimals.rename(columns={ "Name": "pet_name" }, inplace=True)
 lostAnimals['Color'] = lostAnimals['Color'].map(lambda x : collapse_colors(x))
 lostAnimals['is_cat'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, cat_regex))
 lostAnimals['is_dog'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, dog_regex))
 lostAnimals['is_other'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, other_regex))
 lostAnimals['is_unknown'] = lostAnimals['Breed'].map(lambda x : is_animal_type(x, unknown_regex))
-lostAnimals['pet_name'] = lostAnimals['Name']
 lostAnimals['sex_simple'] = lostAnimals['Sex'].map(lambda x : extract_sex(x))
+lostAnimals['dog_breed_type'] = lostAnimals[lostAnimals.is_dog == True]['Breed'].map(lambda x : dog_breed_type(x))
+lostAnimals['date_created'] = pd.to_datetime(lostAnimals['DateCreated'])
 
-lostAnimals[(lostAnimals.is_dog)][lostAnimals.pet_name != 'Unknown']['Name'].value_counts().head(10).to_csv('name.csv')
+lostAnimals[(lostAnimals.is_dog)][lostAnimals.pet_name != 'Unknown']['pet_name'].value_counts().head(10).to_csv('name.csv')
 lostAnimals['Color'].value_counts().head(25).to_csv('color.csv')
 lostAnimals[(lostAnimals.is_dog == True)]['Breed'].value_counts().head(25).to_csv('breed.csv')
 lostAnimals.to_csv('all.csv')
@@ -317,14 +369,16 @@ lostAnimals.to_csv('all.csv')
 #byname = lostAnimals[(lostAnimals.is_dog == True)].groupby(['Name', 'sex_simple'])
 #print byname.describe()
 
-all_dogs = lostAnimals[(lostAnimals.is_dog)].copy()
+all_dogs = lostAnimals[(lostAnimals.is_dog) & (lostAnimals.pet_name != 'Unknown') & (lostAnimals.sex_simple != 'x')]
+top_dogs = filter_df_by_top_n_items(all_dogs, 'pet_name', 10)
 
-top_names = all_dogs[all_dogs.pet_name != 'Unknown']['Name'].value_counts().head(10)
-top_names = list(top_names.keys())
-print top_names
-top_names = { "Name": top_names }
-row_mask = all_dogs.isin(top_names).any(1)
-top_dogs = all_dogs[row_mask][all_dogs.sex_simple != 'x']
-by_name = top_dogs.groupby(['Name', 'sex_simple']).size().reset_index()
-by_name.columns = ["name", "sex", "count"]
-by_name.to_csv('name_and_sex.csv', index=False)
+top_dogs_by_sex = top_dogs.groupby(['pet_name', 'sex_simple']).size().reset_index()
+top_dogs_by_sex.columns = ["name", "sex", "count"]
+top_dogs_by_sex.to_csv("name_and_sex.csv", index=False)
+
+top_dogs_by_breed = top_dogs.groupby(['pet_name', 'dog_breed_type']).size().reset_index()
+top_dogs_by_breed.columns = ["name", "dog_breed_type", "count"]
+top_dogs_by_breed.to_csv("name_and_breed.csv", index=False)
+
+lost_by_date = lostAnimals[lostAnimals['date_created'] > '2011-01-01'].set_index('date_created').resample('M', how='sum')
+lost_by_date.to_csv("lost_by_date.csv")

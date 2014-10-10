@@ -1,0 +1,208 @@
+breed,breed_type
+Australian Cattle Dog,Herding Dogs
+Australian Kelpie,Herding Dogs
+Australian Shepherd,Herding Dogs
+Australian Stumpy Tail Cattle Dog,Herding Dogs
+Bearded Collie,Herding Dogs
+Belgian Shepherd Dog,Herding Dogs
+Berger des Pyrenees,Herding Dogs
+Berger Picard,Herding Dogs
+Border Collie (England),Herding Dogs
+Bouvier des Flandres,Herding Dogs
+Briard,Herding Dogs
+Collie (Rough),Herding Dogs
+Collie (Smooth),Herding Dogs
+Finnish Lapphund,Herding Dogs
+German Shepherd Dog,Herding Dogs
+Iceland Sheepdog,Herding Dogs
+Lancashire Heeler,Herding Dogs
+Mudi,Herding Dogs
+Norwegian Buhund,Herding Dogs
+Old English Sheepdog,Herding Dogs
+Polish Lowland Sheepdog,Herding Dogs
+Portuguese Sheepdog,Herding Dogs
+Puli,Herding Dogs
+Schapendoes,Herding Dogs
+Shetland Sheepdog,Herding Dogs
+Swedish Vallhund,Herding Dogs
+Tatra Sheepdog,Herding Dogs
+Welsh Corgi (Cardigan),Herding Dogs
+Welsh Corgi (Pembroke),Herding Dogs
+Afghan Hound,Hounds
+Basenji,Hounds
+Basset Hound,Hounds
+Beagle,Hounds
+Bloodhound,Hounds
+Borzoi,Hounds
+Coonhound (Black & Tan),Hounds
+Dachshund (Miniature Long-Haired),Hounds
+Dachshund (Miniature Smooth-Haired),Hounds
+Dachshund (Miniature Wire-haired),Hounds
+Dachshund (Standard Long-haired),Hounds
+Dachshund (Standard Smooth),Hounds
+Dachshund (Standard Wire-haired),Hounds
+Deerhound (Scottish),Hounds
+Drever,Hounds
+Finnish Spitz,Hounds
+Foxhound (American),Hounds
+Foxhound (English),Hounds
+Greyhound,Hounds
+Harrier,Hounds
+Ibizan Hound,Hounds
+Irish Wolfhound,Hounds
+Norrbottenspets,Hounds
+Norwegian Elkhound,Hounds
+Norwegian Lundehund,Hounds
+Otterhound,Hounds
+Petit Basset Griffon Vendeen,Hounds
+Pharaoh Hound,Hounds
+Rhodesian Ridgeback,Hounds
+Saluki,Hounds
+Shikoku,Hounds
+Whippet,Hounds
+American Eskimo Dog (Miniature),Non-Sporting Dogs
+American Eskimo Dog (Standard),Non-Sporting Dogs
+Bichon Frise,Non-Sporting Dogs
+Boston Terrier,Non-Sporting Dogs
+Bulldog,Non-Sporting Dogs
+Chinese Shar-Pei,Non-Sporting Dogs
+Chow Chow,Non-Sporting Dogs
+Dalmatian,Non-Sporting Dogs
+French Bulldog,Non-Sporting Dogs
+German Pinscher,Non-Sporting Dogs
+Japanese Spitz,Non-Sporting Dogs
+Keeshond,Non-Sporting Dogs
+Lhasa Apso,Non-Sporting Dogs
+Lowchen,Non-Sporting Dogs
+Poodle (Miniature),Non-Sporting Dogs
+Poodle (Standard),Non-Sporting Dogs
+Schipperke,Non-Sporting Dogs
+Shiba Inu,Non-Sporting Dogs
+Shih Tzu,Non-Sporting Dogs
+Tibetan Spaniel,Non-Sporting Dogs
+Tibetan Terrier,Non-Sporting Dogs
+Xoloitzcuintli (Miniature),Non-Sporting Dogs
+Xoloitzcuintli (Standard),Non-Sporting Dogs
+Barbet,Sporting Dogs
+Braque Français (Gascogne),Sporting Dogs
+Griffon (Wire Haired Pointing),Sporting Dogs
+Kleiner Münsterländer Vorstehund,Sporting Dogs
+Lagotto Romagnolo,Sporting Dogs
+Pointer,Sporting Dogs
+Pointer (German Long-haired),Sporting Dogs
+Pointer (German Short-haired),Sporting Dogs
+Pointer (German Wire-haired),Sporting Dogs
+Pudelpointer,Sporting Dogs
+Retriever (Chesapeake Bay),Sporting Dogs
+Retriever (Curly-coated),Sporting Dogs
+Retriever (Flat-coated),Sporting Dogs
+Retriever (Golden),Sporting Dogs
+Retriever (Labrador),Sporting Dogs
+Retriever (Nova Scotia Duck Tolling),Sporting Dogs
+Setter (English),Sporting Dogs
+Setter (Gordon),Sporting Dogs
+Setter (Irish Red and White),Sporting Dogs
+Setter (Irish),Sporting Dogs
+Spaniel (American Cocker),Sporting Dogs
+Spaniel (American Water),Sporting Dogs
+Spaniel (Blue Picardy),Sporting Dogs
+Spaniel (Brittany),Sporting Dogs
+Spaniel (Clumber),Sporting Dogs
+Spaniel (English Cocker),Sporting Dogs
+Spaniel (English Springer),Sporting Dogs
+Spaniel (Field),Sporting Dogs
+Spaniel (French),Sporting Dogs
+Spaniel (Irish Water),Sporting Dogs
+Spaniel (Sussex),Sporting Dogs
+Spaniel (Welsh Springer),Sporting Dogs
+Spanish Water Dog,Sporting Dogs
+Spinone Italiano,Sporting Dogs
+Vizsla (Smooth-Haired),Sporting Dogs
+Vizsla (Wire-haired),Sporting Dogs
+Weimaraner,Sporting Dogs
+Airedale Terrier,Terriers
+American Staffordshire Terrier,Terriers
+Australian Terrier,Terriers
+Bedlington Terrier,Terriers
+Border Terrier,Terriers
+Bull Terrier,Terriers
+Bull Terrier (Miniature),Terriers
+Cairn Terrier,Terriers
+Cesky Terrier,Terriers
+Dandie Dinmont Terrier,Terriers
+Fox Terrier (Smooth),Terriers
+Fox Terrier (Wire),Terriers
+Glen of Imaal Terrier,Terriers
+Irish Terrier,Terriers
+Kerry Blue Terrier,Terriers
+Lakeland Terrier,Terriers
+Manchester Terrier,Terriers
+Norfolk Terrier,Terriers
+Norwich Terrier,Terriers
+Parson Russell Terrier,Terriers
+Schnauzer (Miniature),Terriers
+Scottish Terrier,Terriers
+Sealyham Terrier,Terriers
+Skye Terrier,Terriers
+Soft-coated Wheaten Terrier,Terriers
+Staffordshire Bull Terrier,Terriers
+Welsh Terrier,Terriers
+West Highland White Terrier,Terriers
+Affenpinscher,Toy Dogs
+American Eskimo Dog (Toy),Toy Dogs
+Cavalier King Charles Spaniel,Toy Dogs
+Chihuahua (Long Coat),Toy Dogs
+Chihuahua (Short Coat),Toy Dogs
+Chinese Crested,Toy Dogs
+Coton de Tulear,Toy Dogs
+English Toy Spaniel,Toy Dogs
+Griffon (Brussels),Toy Dogs
+Havanese,Toy Dogs
+Italian Greyhound,Toy Dogs
+Japanese Spaniel,Toy Dogs
+Maltese,Toy Dogs
+Miniature Pinscher,Toy Dogs
+Papillon,Toy Dogs
+Pekingese,Toy Dogs
+Pomeranian,Toy Dogs
+Poodle (Toy),Toy Dogs
+Pug,Toy Dogs
+Silky Terrier,Toy Dogs
+Toy Fox Terrier,Toy Dogs
+Toy Manchester Terrier,Toy Dogs
+Xoloitzcuintli (Toy),Toy Dogs
+Yorkshire Terrier,Toy Dogs
+Akita,Working Dogs
+Alaskan Malamute,Working Dogs
+Anatolian Shepherd Dog,Working Dogs
+Bernese Mountain Dog,Working Dogs
+Black Russian Terrier,Working Dogs
+Boxer,Working Dogs
+Bullmastiff,Working Dogs
+Canaan Dog,Working Dogs
+Canadian Eskimo Dog,Working Dogs
+Cane Corso,Working Dogs
+Doberman Pinscher,Working Dogs
+Dogue de Bordeaux,Working Dogs
+Entlebucher Mountain Dog,Working Dogs
+Eurasier,Working Dogs
+Great Dane,Working Dogs
+Great Pyrenees,Working Dogs
+Greater Swiss Mountain Dog,Working Dogs
+Greenland Dog,Working Dogs
+Hovawart,Working Dogs
+Karelian Bear Dog,Working Dogs
+Komondor,Working Dogs
+Kuvasz,Working Dogs
+Leonberger,Working Dogs
+Mastiff,Working Dogs
+Neapolitan Mastiff,Working Dogs
+Newfoundland,Working Dogs
+Portuguese Water Dog,Working Dogs
+Rottweiler,Working Dogs
+Samoyed,Working Dogs
+Schnauzer (Giant),Working Dogs
+Schnauzer (Standard),Working Dogs
+Siberian Husky,Working Dogs
+St. Bernard,Working Dogs
+Tibetan Mastiff,Working Dogs
