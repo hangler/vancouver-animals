@@ -48,7 +48,7 @@
 
           <a name="over_time"></a>
           <h1>Lost Dogs over Time</h1>
-          <div id="foo"></div>
+          <div id="lost_dogs_graph"></div>
 
           <a name="names"></a>
           <h1>Top 10 Dog Names</h1>
@@ -95,11 +95,16 @@
       }); 
     }
 
-    // Generic method to make a Venn diagram
+    // Make a Venn diagram of dog colours
+    // Will only really work up to 4 colours that overlap
     function makeVenn() {
       d3.text("data/color.csv", function(text) {
         var baseItems = {};
         var dataset = d3.csv.parseRows(text);
+
+        // First build a set of the "base items", in this case the colours
+        // We split on the "/" because sometimes there are combos of multiple colours,
+        // for example "Black/Brown"; we want to record these as "black" and "brown"
         $.each(dataset, function(itemIndex, item) {
           var keys = item[0].split("/");
           var value = parseInt(item[1]);
@@ -108,6 +113,10 @@
           });
         });
         var sets = [];
+
+        // The indices dictionary maps the _name_ of the base item (e.g. "black")
+        // to its index in the baseItems set; we can't predict ahead of time what
+        // order those keys will be in
         var indices = {};
         $.each(Object.keys(baseItems), function(baseItemKeyIndex, baseItemKey) {
           sets.push({ label: baseItemKey, size: baseItems[baseItemKey] });
@@ -115,7 +124,8 @@
         });
         
         var results = [];
-        // Need to get all possible combinations of sets; code adapted from
+        
+        // Need to get *all* possible combinations of base items (colours); code adapted from
         // http://www.growingwiththeweb.com/2013/06/algorithm-all-combinations-of-set.html
         for (var i = 0; i < sets.length; i++) {
           var resultsLength = results.length;
@@ -127,13 +137,12 @@
           results.push([indices[sets[i]["label"]]]);
         }
 
+        // This will be used to build the overlaps array; even if a particular base item
+        // combo has no matches, we need to initialize it to zero
         var interimResults = {};
         $.each(results, function(setIndex, set) {
           interimResults[set] = 0;
         });
-        
-        //console.log(indices);
-        //console.log(interimResults);
 
         // Fill overlaps data
         $.each(dataset, function(itemIndex, item) {
@@ -144,13 +153,14 @@
 
           keys.sort();
 
+          // Exclude sets that have only one item in them
           if (keys.length > 1) {
             var value = parseInt(item[1]);
             interimResults[keys] = value;
           }
         });
-        //console.log(interimResults);
 
+        // Finally, we can build the overlaps array
         var overlaps = [];
         $.each(Object.keys(interimResults), function(interimResultKeyIndex, interimResultKey) {
           if (interimResultKey.length > 1) {
@@ -158,6 +168,7 @@
           }
         });
 
+        // This is what's used by venn.js
         sets = venn.venn(sets, overlaps);
 
         var colorVenn = venn.drawD3Diagram(d3.select("#color_venn"), sets, 700, 700);
@@ -177,6 +188,7 @@
       });
     }
 
+    // Make a Venn diagram of lost dog counts
     function makeLostAnimalsLineGraph() {
       
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d["date_created"] + "<br/>" + parseInt(d["is_dog"]) + " dogs lost"; });
@@ -188,7 +200,7 @@
       // formatters for axis and labels
       var decimalFormat = d3.format("0.2f");
       
-      var svg = d3.select("#foo")
+      var svg = d3.select("#lost_dogs_graph")
         .append("svg")
         .attr("width", width + margin.right + margin.left)
         .attr("height", height + margin.top + margin.bottom)
@@ -268,20 +280,15 @@
            .on('mouseover', tip.show)
            .on('mouseout', tip.hide)
 
-
-
       });
     }
 
     var types = ["name", "breed"];
 
-    // Make charts and Venn
+    // Make charts, Venn, line graphs
     for (var i = 0; i < types.length; i++) { makeChart(types[i]) }
     makeVenn();
     makeLostAnimalsLineGraph();
-
-    // Make line graph
-
 
     </script>
   
