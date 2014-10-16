@@ -44,11 +44,13 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
 
+        <!--
           <a name="over_time"></a>
           <h1>Lost Dogs over Time</h1>
           <div id="lost_dogs_graph"></div>
+        -->
 
           <a name="names"></a>
           <h1>Top 10 Dog Names</h1>
@@ -64,6 +66,13 @@
           <div id="breed_chart" class="chart"></div>
 
         </div>
+
+        <div class="col-md-4">
+
+        <h1>Animal Name</h1>
+
+        </div>
+
       </div>
 
     </div>
@@ -188,10 +197,10 @@
       });
     }
 
-    // Make a Venn diagram of lost dog counts
+    // Make a line diagram of lost dog counts
     function makeLostAnimalsLineGraph() {
       
-      tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d["date_created"] + "<br/>" + parseInt(d["is_dog"]) + " dogs lost"; });
+      var tooltip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d["date_created"] + "<br/>" + parseInt(d["is_dog"]) + " dogs lost"; });
 
       var height = 500;
       var width = 1000;
@@ -206,7 +215,7 @@
         .attr("height", height + margin.top + margin.bottom)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       
-      svg.call(tip)
+      svg.call(tooltip);
 
       svg.append("g")
         .attr("class", "y axis");
@@ -277,8 +286,8 @@
            .attr("cx", function(d, i) { return xScale(d['date_created']) })
            .attr("cy", function(d, i) { return yScale(d['is_dog']) })
            .attr("r", function(d, i) { return 4 })
-           .on('mouseover', tip.show)
-           .on('mouseout', tip.hide)
+           .on('mouseover', tooltip.show)
+           .on('mouseout', tooltip.hide)
 
       });
     }
@@ -288,7 +297,7 @@
     // Make charts, Venn, line graphs
     for (var i = 0; i < types.length; i++) { makeChart(types[i]) }
     makeVenn();
-    makeLostAnimalsLineGraph();
+    //makeLostAnimalsLineGraph();
 
     </script>
   
