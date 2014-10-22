@@ -1,86 +1,76 @@
 name,dog_breed_type,count
-Bailey,cross,22
-Bailey,herding dogs,2
-Bailey,hounds,2
-Bailey,non-sporting dogs,2
-Bailey,sporting dogs,13
-Bailey,terriers,2
-Bailey,toy dogs,2
-Bailey,unknown,4
-Bailey,working dogs,1
-Bear,cross,27
-Bear,herding dogs,3
-Bear,non-sporting dogs,4
-Bear,sporting dogs,3
-Bear,terriers,1
-Bear,unknown,4
-Bear,working dogs,7
-Bella,cross,12
-Bella,herding dogs,3
-Bella,hounds,2
-Bella,non-sporting dogs,2
-Bella,sporting dogs,6
-Bella,terriers,2
-Bella,toy dogs,4
-Bella,unknown,6
-Bella,working dogs,1
-Buddy,cross,39
-Buddy,herding dogs,3
-Buddy,hounds,4
-Buddy,non-sporting dogs,10
-Buddy,sporting dogs,11
-Buddy,terriers,4
-Buddy,toy dogs,3
-Buddy,unknown,6
-Buddy,working dogs,1
-Charlie,cross,25
-Charlie,hounds,4
-Charlie,non-sporting dogs,4
-Charlie,sporting dogs,14
-Charlie,terriers,3
-Charlie,toy dogs,4
-Charlie,unknown,6
-Daisy,cross,17
-Daisy,herding dogs,2
-Daisy,hounds,2
-Daisy,non-sporting dogs,3
-Daisy,sporting dogs,5
-Daisy,terriers,3
-Daisy,toy dogs,2
-Daisy,unknown,7
-Lucky,cross,24
-Lucky,herding dogs,7
-Lucky,hounds,2
-Lucky,non-sporting dogs,8
-Lucky,sporting dogs,7
-Lucky,terriers,4
-Lucky,toy dogs,5
-Lucky,unknown,18
-Lucky,working dogs,4
-Lucy,cross,15
-Lucy,herding dogs,5
-Lucy,hounds,1
-Lucy,non-sporting dogs,6
-Lucy,sporting dogs,5
-Lucy,terriers,4
-Lucy,toy dogs,4
-Lucy,unknown,7
-Lucy,working dogs,1
-Max,cross,31
-Max,herding dogs,15
-Max,hounds,4
-Max,non-sporting dogs,7
-Max,sporting dogs,11
-Max,terriers,3
-Max,toy dogs,1
-Max,unknown,2
-Max,working dogs,6
-Rocky,cross,23
-Rocky,herding dogs,13
-Rocky,hounds,4
-Rocky,non-sporting dogs,10
-Rocky,sporting dogs,4
-Rocky,terriers,5
-Rocky,toy dogs,4
-Rocky,unknown,10
-Rocky,working dogs,7
+?,Dog Crossbreed,25
+?,Herding Dog,6
+?,Non-Sporting Dog,2
+?,Sporting Dog,6
+?,Terrier,5
+?,Toy Dog,4
+?,Working Dog,5
+Bailey,Dog Crossbreed,22
+Bailey,Herding Dog,2
+Bailey,Hound,2
+Bailey,Non-Sporting Dog,3
+Bailey,Sporting Dog,16
+Bailey,Terrier,2
+Bailey,Toy Dog,2
+Bailey,Working Dog,1
+Bear,Dog Crossbreed,28
+Bear,Herding Dog,2
+Bear,Non-Sporting Dog,4
+Bear,Sporting Dog,4
+Bear,Terrier,1
+Bear,Working Dog,10
+Buddy,Dog Crossbreed,39
+Buddy,Herding Dog,4
+Buddy,Hound,5
+Buddy,Non-Sporting Dog,7
+Buddy,Sporting Dog,11
+Buddy,Terrier,8
+Buddy,Toy Dog,4
+Buddy,Working Dog,3
+Charlie,Dog Crossbreed,27
+Charlie,Hound,3
+Charlie,Non-Sporting Dog,5
+Charlie,Sporting Dog,14
+Charlie,Terrier,5
+Charlie,Toy Dog,5
+Charlie,Working Dog,1
+Daisy,Dog Crossbreed,20
+Daisy,Herding Dog,2
+Daisy,Hound,2
+Daisy,Non-Sporting Dog,2
+Daisy,Sporting Dog,7
+Daisy,Terrier,6
+Daisy,Toy Dog,3
+Lucky,Dog Crossbreed,26
+Lucky,Herding Dog,9
+Lucky,Hound,3
+Lucky,Non-Sporting Dog,8
+Lucky,Sporting Dog,9
+Lucky,Terrier,5
+Lucky,Toy Dog,12
+Lucky,Working Dog,7
+Lucy,Dog Crossbreed,18
+Lucy,Herding Dog,6
+Lucy,Hound,3
+Lucy,Non-Sporting Dog,7
+Lucy,Sporting Dog,6
+Lucy,Terrier,5
+Lucy,Toy Dog,2
+Lucy,Working Dog,2
+Max,Dog Crossbreed,31
+Max,Herding Dog,15
+Max,Hound,5
+Max,Non-Sporting Dog,4
+Max,Sporting Dog,11
+Max,Terrier,6
+Max,Toy Dog,1
+Max,Working Dog,7
+Rocky,Dog Crossbreed,23
+Rocky,Herding Dog,16
+Rocky,Hound,3
+Rocky,Non-Sporting Dog,10
+Rocky,Sporting Dog,3
+Rocky,Terrier,8
+Rocky,Toy Dog,4
+Rocky,Working Dog,13
