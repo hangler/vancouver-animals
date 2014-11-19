@@ -51,21 +51,29 @@ lostAnimals['is_dog'] = lostAnimals['dog_breed_type'].map(lambda x : is_dog(x))
 lostAnimals['sex_simple'] = lostAnimals['Sex'].map(lambda x : extract_sex(x))
 lostAnimals['date_created'] = pd.to_datetime(lostAnimals['DateCreated'])
 
-lostAnimals[(lostAnimals.is_dog)][(lostAnimals.pet_name != 'Unknown') & (lostAnimals.pet_name != '?')]['pet_name'].value_counts().head(10).to_csv('name.csv')
+names = lostAnimals[(lostAnimals.is_dog) & (lostAnimals.pet_name != 'Unknown') & (lostAnimals.pet_name != '?') & (lostAnimals.sex_simple != 'x')]['pet_name'].value_counts().head(10)
+names.to_csv('name.csv')
+
 lostAnimals['Color'].value_counts().head(25).to_csv('color.csv')
 lostAnimals[(lostAnimals.is_dog == True)]['Purebred'].value_counts().head(25).to_csv('breed.csv')
 lostAnimals.to_csv('all.csv')
 
-all_dogs = lostAnimals[(lostAnimals.is_dog) & (lostAnimals.pet_name != 'Unknown') & (lostAnimals.sex_simple != 'x')]
+all_dogs = lostAnimals[(lostAnimals.is_dog) & (lostAnimals.pet_name != 'Unknown') & (lostAnimals.pet_name != '?') & (lostAnimals.sex_simple != 'x')]
+female_dogs = all_dogs[(sex_simple = 'f')]
+male_dogs = all_dogs[(sex_simple = 'm')]
 top_dogs = filter_df_by_top_n_items(all_dogs, 'pet_name', 10)
 
 top_dogs_by_sex = top_dogs.groupby(['pet_name', 'sex_simple']).size().reset_index()
 top_dogs_by_sex.columns = ["name", "sex", "count"]
 top_dogs_by_sex.to_csv("name_and_sex.csv", index=False)
+top_dogs_by_sex_pivot = top_dogs_by_sex.pivot(index="name", columns="sex", values="count")
 
 top_dogs_by_breed = top_dogs.groupby(['pet_name', 'dog_breed_type']).size().reset_index()
 top_dogs_by_breed.columns = ["name", "dog_breed_type", "count"]
 top_dogs_by_breed.to_csv("name_and_breed.csv", index=False)
+top_dogs_by_breed_pivot = top_dogs_by_breed.pivot(index="name", columns="dog_breed_type", values="count")
+
+top_dogs_by_sex_pivot.join(top_dogs_by_breed_pivot).fillna(0).to_csv("name_stats.csv")
 
 lost_by_date = lostAnimals[lostAnimals['date_created'] > '2011-01-01'].set_index('date_created').resample('M', how='sum')
 lost_by_date.to_csv("lost_by_date.csv")

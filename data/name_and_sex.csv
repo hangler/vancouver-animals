@@ -1,6 +1,4 @@
 name,sex,count
-?,f,27
-?,m,26
 Bailey,f,21
 Bailey,m,29
 Bear,f,4
@@ -17,3 +15,4 @@ Max,f,1
 Max,m,79
 Rocky,f,1
 Rocky,m,79
+Tyson,m,38

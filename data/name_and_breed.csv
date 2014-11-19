@@ -1,11 +1,4 @@
 name,dog_breed_type,count
-?,Dog Crossbreed,25
-?,Herding Dog,6
-?,Non-Sporting Dog,2
-?,Sporting Dog,6
-?,Terrier,5
-?,Toy Dog,4
-?,Working Dog,5
 Bailey,Dog Crossbreed,22
 Bailey,Herding Dog,2
 Bailey,Hound,2
@@ -74,3 +67,10 @@ Rocky,Sporting Dog,3
 Rocky,Terrier,8
 Rocky,Toy Dog,4
 Rocky,Working Dog,13
+Tyson,Dog Crossbreed,12
+Tyson,Herding Dog,1
+Tyson,Non-Sporting Dog,4
+Tyson,Sporting Dog,2
+Tyson,Terrier,8
+Tyson,Toy Dog,2
+Tyson,Working Dog,9
