@@ -19,6 +19,12 @@ body {
   border: solid #390 1px;
   color: #390;
   text-shadow: #fff 0 1px 0;
+  cursor: pointer;
+}
+
+#name_chart div:hover {
+  background-color: #fcffe3;
+  color: #4a0;
 }
 
 #color_chart div {
@@ -62,4 +68,9 @@ circle {
 
 .d3-tip {
   text-align: center;
+}
+
+table td.data_label {
+  padding-right: 10px;
+  text-align: right;
 }

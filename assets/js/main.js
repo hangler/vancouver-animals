@@ -31,8 +31,10 @@ function buildNode(columns, row) {
 
 // Show name data
 function showNameData(name) {
-  console.log("Data for " + name);
-  console.log(name_data[name]);
+  var node = name_data[name];
+  $(".data_content.name").text(node["name"]);
+  $(".data_content.m").text(node["m"]);
+  $(".data_content.f").text(node["f"]);
 }
 
 // Generic method to make a bar chart
