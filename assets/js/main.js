@@ -33,8 +33,8 @@ function buildNode(columns, row) {
 function showNameData(name) {
   var node = name_data[name];
   $(".data_content.name").text(node["name"]);
-  $(".data_content.m").text(node["m"]);
-  $(".data_content.f").text(node["f"]);
+  $(".data_content.m").text(parseInt(node["m"]));
+  $(".data_content.f").text(parseInt(node["f"]));
 }
 
 // Generic method to make a bar chart
