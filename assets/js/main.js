@@ -35,6 +35,7 @@ function showNameData(name) {
   $(".data_content.name").text(node["name"]);
   $(".data_content.m").text(parseInt(node["m"]));
   $(".data_content.f").text(parseInt(node["f"]));
+  $(".data_content.hound").text(parseInt(node["hound"]));
 }
 
 // Generic method to make a bar chart

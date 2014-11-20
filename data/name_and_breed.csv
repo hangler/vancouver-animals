@@ -1,76 +1,76 @@
 name,dog_breed_type,count
-Bailey,Dog Crossbreed,22
-Bailey,Herding Dog,2
-Bailey,Hound,2
-Bailey,Non-Sporting Dog,3
-Bailey,Sporting Dog,16
-Bailey,Terrier,2
-Bailey,Toy Dog,2
-Bailey,Working Dog,1
-Bear,Dog Crossbreed,28
-Bear,Herding Dog,2
-Bear,Non-Sporting Dog,4
-Bear,Sporting Dog,4
-Bear,Terrier,1
-Bear,Working Dog,10
-Buddy,Dog Crossbreed,39
-Buddy,Herding Dog,4
-Buddy,Hound,5
-Buddy,Non-Sporting Dog,7
-Buddy,Sporting Dog,11
-Buddy,Terrier,8
-Buddy,Toy Dog,4
-Buddy,Working Dog,3
-Charlie,Dog Crossbreed,27
-Charlie,Hound,3
-Charlie,Non-Sporting Dog,5
-Charlie,Sporting Dog,14
-Charlie,Terrier,5
-Charlie,Toy Dog,5
-Charlie,Working Dog,1
-Daisy,Dog Crossbreed,20
-Daisy,Herding Dog,2
-Daisy,Hound,2
-Daisy,Non-Sporting Dog,2
-Daisy,Sporting Dog,7
-Daisy,Terrier,6
-Daisy,Toy Dog,3
-Lucky,Dog Crossbreed,26
-Lucky,Herding Dog,9
-Lucky,Hound,3
-Lucky,Non-Sporting Dog,8
-Lucky,Sporting Dog,9
-Lucky,Terrier,5
-Lucky,Toy Dog,12
-Lucky,Working Dog,7
-Lucy,Dog Crossbreed,18
-Lucy,Herding Dog,6
-Lucy,Hound,3
-Lucy,Non-Sporting Dog,7
-Lucy,Sporting Dog,6
-Lucy,Terrier,5
-Lucy,Toy Dog,2
-Lucy,Working Dog,2
-Max,Dog Crossbreed,31
-Max,Herding Dog,15
-Max,Hound,5
-Max,Non-Sporting Dog,4
-Max,Sporting Dog,11
-Max,Terrier,6
-Max,Toy Dog,1
-Max,Working Dog,7
-Rocky,Dog Crossbreed,23
-Rocky,Herding Dog,16
-Rocky,Hound,3
-Rocky,Non-Sporting Dog,10
-Rocky,Sporting Dog,3
-Rocky,Terrier,8
-Rocky,Toy Dog,4
-Rocky,Working Dog,13
-Tyson,Dog Crossbreed,12
-Tyson,Herding Dog,1
-Tyson,Non-Sporting Dog,4
-Tyson,Sporting Dog,2
-Tyson,Terrier,8
-Tyson,Toy Dog,2
-Tyson,Working Dog,9
+Bailey,crossbreed,22
+Bailey,herding,2
+Bailey,hound,2
+Bailey,nonsporting,3
+Bailey,sporting,16
+Bailey,terrier,2
+Bailey,toy,2
+Bailey,working,1
+Bear,crossbreed,28
+Bear,herding,2
+Bear,nonsporting,4
+Bear,sporting,4
+Bear,terrier,1
+Bear,working,10
+Buddy,crossbreed,39
+Buddy,herding,4
+Buddy,hound,5
+Buddy,nonsporting,7
+Buddy,sporting,11
+Buddy,terrier,8
+Buddy,toy,4
+Buddy,working,3
+Charlie,crossbreed,27
+Charlie,hound,3
+Charlie,nonsporting,5
+Charlie,sporting,14
+Charlie,terrier,5
+Charlie,toy,5
+Charlie,working,1
+Daisy,crossbreed,20
+Daisy,herding,2
+Daisy,hound,2
+Daisy,nonsporting,2
+Daisy,sporting,7
+Daisy,terrier,6
+Daisy,toy,3
+Lucky,crossbreed,26
+Lucky,herding,9
+Lucky,hound,3
+Lucky,nonsporting,8
+Lucky,sporting,9
+Lucky,terrier,5
+Lucky,toy,12
+Lucky,working,7
+Lucy,crossbreed,18
+Lucy,herding,6
+Lucy,hound,3
+Lucy,nonsporting,7
+Lucy,sporting,6
+Lucy,terrier,5
+Lucy,toy,2
+Lucy,working,2
+Max,crossbreed,31
+Max,herding,15
+Max,hound,5
+Max,nonsporting,4
+Max,sporting,11
+Max,terrier,6
+Max,toy,1
+Max,working,7
+Rocky,crossbreed,23
+Rocky,herding,16
+Rocky,hound,3
+Rocky,nonsporting,10
+Rocky,sporting,3
+Rocky,terrier,8
+Rocky,toy,4
+Rocky,working,13
+Tyson,crossbreed,12
+Tyson,herding,1
+Tyson,nonsporting,4
+Tyson,sporting,2
+Tyson,terrier,8
+Tyson,toy,2
+Tyson,working,9

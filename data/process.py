@@ -45,7 +45,7 @@ def filter_df_by_top_n_items(df, column_name, n):
   return filtered_df
 
 lostAnimals.rename(columns={ "Name": "pet_name" }, inplace=True)
-lostAnimals.rename(columns={ "CKC Class": "dog_breed_type" }, inplace=True)
+lostAnimals.rename(columns={ "ckc_class": "dog_breed_type" }, inplace=True)
 lostAnimals['Color'] = lostAnimals['Color'].map(lambda x : collapse_colors(x))
 lostAnimals['is_dog'] = lostAnimals['dog_breed_type'].map(lambda x : is_dog(x))
 lostAnimals['sex_simple'] = lostAnimals['Sex'].map(lambda x : extract_sex(x))
@@ -59,8 +59,8 @@ lostAnimals[(lostAnimals.is_dog == True)]['Purebred'].value_counts().head(25).to
 lostAnimals.to_csv('all.csv')
 
 all_dogs = lostAnimals[(lostAnimals.is_dog) & (lostAnimals.pet_name != 'Unknown') & (lostAnimals.pet_name != '?') & (lostAnimals.sex_simple != 'x')]
-female_dogs = all_dogs[(sex_simple = 'f')]
-male_dogs = all_dogs[(sex_simple = 'm')]
+female_dogs = all_dogs[(all_dogs.sex_simple == 'f')]
+male_dogs = all_dogs[(all_dogs.sex_simple == 'm')]
 top_dogs = filter_df_by_top_n_items(all_dogs, 'pet_name', 10)
 
 top_dogs_by_sex = top_dogs.groupby(['pet_name', 'sex_simple']).size().reset_index()
